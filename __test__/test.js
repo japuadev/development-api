@@ -1,9 +1,9 @@
 const { deepEqual, ok } = require('assert')
-const database = require('./database')
+const database = require('../database')
 const DEFAULT_ITEM_REGISTER = {
     name: 'Flash',
     power: 'Speed',
-    id: 1 
+    id: 1
 }
 
 const DEFAULT_ITEM_UPDATE = {
@@ -13,15 +13,15 @@ const DEFAULT_ITEM_UPDATE = {
 }
 
 describe('Suite de manipulação de heróis', () => {
-    before(async() => {
+    before(async () => {
         await database.registerHeroe(DEFAULT_ITEM_REGISTER)
         await database.registerHeroe(DEFAULT_ITEM_UPDATE)
     })
-    
+
     it('Deve pesquisar um herói usando arquivos', async () => {
         const expected = DEFAULT_ITEM_REGISTER
         const [result] = await database.list(expected.id)
-        
+
         deepEqual(result, expected)
     })
 
@@ -32,14 +32,14 @@ describe('Suite de manipulação de heróis', () => {
         deepEqual(actual, expected)
     })
 
-    it('Deve remover herói por Id', async() => {
+    it('Deve remover herói por Id', async () => {
         const expected = true;
         const result = await database.remove(DEFAULT_ITEM_REGISTER.id)
 
         deepEqual(result, expected)
     })
 
-    it('Deve atualizar um herói por Id', async() => {
+    it('Deve atualizar um herói por Id', async () => {
         const expected = {
             ...DEFAULT_ITEM_UPDATE,
             name: 'Batman',
